@@ -1,0 +1,6 @@
+{
+  "name": "Whot!",
+  "description": "A mobile-optimized, offline-first Whot! card game with realistic gameplay and AI opponents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
