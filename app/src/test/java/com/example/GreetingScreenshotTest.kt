@@ -2,6 +2,7 @@ package com.example
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import com.example.game.GameUiState
 import com.example.ui.theme.MyApplicationTheme
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
@@ -31,7 +32,10 @@ class GreetingScreenshotTest {
           isAiMode = true,
           onModeChange = {},
           onDealClick = {},
-          onResetStats = {}
+          onResetStats = {},
+          state = GameUiState(),
+          onCreateRoomClick = {},
+          onJoinRoomClick = {}
         )
       }
     }

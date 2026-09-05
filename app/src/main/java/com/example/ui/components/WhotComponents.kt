@@ -61,6 +61,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -475,35 +476,35 @@ fun CardBackWidget(
         ),
         label = "drawGlowIntensity"
     )
-    val WhotClassicRed = Color(0xFF6A0C0E)
-    val CardBackBg = Color(0xFFFBF9F6)
+    val WhotRed = Color(0xFFD32F2F)
+    val WhiteColor = Color.White
 
     Card(
         modifier = modifier
             .width(width)
             .height(height)
             .neonGlow(color = glowColor, radius = 10.dp, intensity = animatedIntensity)
-            .border(1.5.dp, glowColor.copy(alpha = 0.8f), RoundedCornerShape(10.dp)),
+            .border(2.dp, WhiteColor, RoundedCornerShape(10.dp)),
         shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(containerColor = CardBackBg)
+        colors = CardDefaults.cardColors(containerColor = WhotRed)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(6.dp)
-                .background(CardBackBg)
+                .background(WhotRed)
         ) {
-            // Geometrical elegant lines pattern on card back using classic red
+            // Geometrical elegant lines pattern on card back using White
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val step = 15.dp.toPx()
-                val lineStroke = Stroke(width = 1.dp.toPx())
-                val redColor = WhotClassicRed.copy(alpha = 0.15f)
+                val lineStroke = Stroke(width = 1.2.dp.toPx())
+                val patternColor = WhiteColor.copy(alpha = 0.25f)
 
                 // Horizontal lines
                 var y = 0f
                 while (y < size.height) {
                     drawLine(
-                        color = redColor,
+                        color = patternColor,
                         start = Offset(0f, y),
                         end = Offset(size.width, y),
                         strokeWidth = lineStroke.width
@@ -515,7 +516,7 @@ fun CardBackWidget(
                 var x = 0f
                 while (x < size.width) {
                     drawLine(
-                        color = redColor,
+                        color = patternColor,
                         start = Offset(x, 0f),
                         end = Offset(x, size.height),
                         strokeWidth = lineStroke.width
@@ -523,25 +524,35 @@ fun CardBackWidget(
                     x += step
                 }
 
-                // Decorative center diamond/rect in classic red
-                drawRect(
-                    color = WhotClassicRed.copy(alpha = 0.3f),
-                    topLeft = Offset(size.width * 0.3f, size.height * 0.4f),
-                    size = Size(size.width * 0.4f, size.height * 0.2f),
-                    style = Stroke(width = 2.dp.toPx())
+                // Inner white border frame
+                drawRoundRect(
+                    color = WhiteColor.copy(alpha = 0.4f),
+                    topLeft = Offset(4.dp.toPx(), 4.dp.toPx()),
+                    size = Size(size.width - 8.dp.toPx(), size.height - 8.dp.toPx()),
+                    cornerRadius = CornerRadius(6.dp.toPx()),
+                    style = Stroke(width = 1.dp.toPx())
                 )
             }
 
-            Text(
-                text = "WHOT!",
-                color = WhotClassicRed,
-                fontSize = (width.value * 0.16f).sp,
-                fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily.Serif,
-                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                letterSpacing = 1.sp,
-                modifier = Modifier.align(Alignment.Center)
-            )
+            // Beautiful white circle emblem with the red word "WHOT"
+            Box(
+                modifier = Modifier
+                    .size((width.value * 0.65f).dp)
+                    .align(Alignment.Center)
+                    .background(WhiteColor, CircleShape)
+                    .border(2.dp, WhotRed, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "WHOT",
+                    color = WhotRed,
+                    fontSize = (width.value * 0.14f).sp,
+                    fontWeight = FontWeight.Black,
+                    fontFamily = FontFamily.Serif,
+                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                    letterSpacing = 1.sp
+                )
+            }
         }
     }
 }
